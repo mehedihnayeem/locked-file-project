@@ -19,6 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const togglePasswordBtn = document.getElementById('toggle-password');
     const togglePasswordIcon = togglePasswordBtn.querySelector('i');
     
+    const confirmPasswordGroup = document.getElementById('confirm-password-group');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    const toggleConfirmPasswordBtn = document.getElementById('toggle-confirm-password');
+    const toggleConfirmPasswordIcon = toggleConfirmPasswordBtn.querySelector('i');
+    const passwordError = document.getElementById('password-error');
+    const passwordLabel = document.getElementById('password-label');
+    
     const statusMessage = document.getElementById('status-message');
     const statusText = document.getElementById('status-text');
     const statusIcon = statusMessage.querySelector('i');
@@ -46,10 +53,15 @@ document.addEventListener('DOMContentLoaded', () => {
             dropText.textContent = 'Drop file to lock';
             actionText.textContent = 'Lock File';
             actionIcon.className = 'uil uil-lock';
+            confirmPasswordGroup.classList.remove('hidden');
+            passwordLabel.textContent = 'Encryption Password';
         } else {
             dropText.textContent = 'Drop .locked file to unlock';
             actionText.textContent = 'Unlock File';
             actionIcon.className = 'uil uil-unlock';
+            confirmPasswordGroup.classList.add('hidden');
+            passwordLabel.textContent = 'Decryption Password';
+            passwordError.classList.add('hidden');
         }
         clearFile();
         clearStatus();
@@ -133,16 +145,38 @@ document.addEventListener('DOMContentLoaded', () => {
         togglePasswordIcon.className = type === 'password' ? 'uil uil-eye' : 'uil uil-eye-slash';
     });
 
+    toggleConfirmPasswordBtn.addEventListener('click', () => {
+        const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        confirmPasswordInput.setAttribute('type', type);
+        toggleConfirmPasswordIcon.className = type === 'password' ? 'uil uil-eye' : 'uil uil-eye-slash';
+    });
+
     // Check Readiness
     function checkReadyState() {
-        if (currentFile && passwordInput.value.length > 0) {
-            actionBtn.disabled = false;
+        let isReady = false;
+        if (currentMode === 'encrypt') {
+            if (currentFile && passwordInput.value.length > 0 && confirmPasswordInput.value.length > 0) {
+                if (passwordInput.value === confirmPasswordInput.value) {
+                    passwordError.classList.add('hidden');
+                    isReady = true;
+                } else {
+                    passwordError.classList.remove('hidden');
+                    isReady = false;
+                }
+            } else {
+                passwordError.classList.add('hidden');
+            }
         } else {
-            actionBtn.disabled = true;
+            passwordError.classList.add('hidden');
+            if (currentFile && passwordInput.value.length > 0) {
+                isReady = true;
+            }
         }
+        actionBtn.disabled = !isReady;
     }
 
     passwordInput.addEventListener('input', checkReadyState);
+    confirmPasswordInput.addEventListener('input', checkReadyState);
 
     // Status Message
     function showStatus(text, type) {
@@ -239,6 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showStatus('File locked successfully!', 'success');
             setTimeout(clearFile, 2000);
             passwordInput.value = '';
+            confirmPasswordInput.value = '';
             checkReadyState();
 
         } catch (error) {
@@ -329,6 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showStatus('File unlocked successfully!', 'success');
             setTimeout(clearFile, 2000);
             passwordInput.value = '';
+            confirmPasswordInput.value = '';
             checkReadyState();
 
         } catch (error) {
@@ -348,6 +384,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle form submission via enter key
     passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !actionBtn.disabled) {
+            actionBtn.click();
+        }
+    });
+
+    confirmPasswordInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' && !actionBtn.disabled) {
             actionBtn.click();
         }

@@ -69,14 +69,28 @@
         </div>
 
         <div class="password-section">
-            <label for="password">Encryption Password</label>
-            <div class="password-input-wrapper">
-                <i class="uil uil-keyhole-circle icon-left"></i>
-                <input type="password" id="password" placeholder="Enter a strong password">
-                <button type="button" class="toggle-password" id="toggle-password" aria-label="Toggle password visibility">
-                    <i class="uil uil-eye"></i>
-                </button>
+            <div class="password-group">
+                <label for="password" id="password-label">Encryption Password</label>
+                <div class="password-input-wrapper">
+                    <i class="uil uil-keyhole-circle icon-left"></i>
+                    <input type="password" id="password" placeholder="Enter a strong password">
+                    <button type="button" class="toggle-password" id="toggle-password" aria-label="Toggle password visibility">
+                        <i class="uil uil-eye"></i>
+                    </button>
+                </div>
             </div>
+            
+            <div class="password-group" id="confirm-password-group">
+                <label for="confirm-password">Enter Again</label>
+                <div class="password-input-wrapper">
+                    <i class="uil uil-keyhole-circle icon-left"></i>
+                    <input type="password" id="confirm-password" placeholder="Confirm your password">
+                    <button type="button" class="toggle-password" id="toggle-confirm-password" aria-label="Toggle password visibility">
+                        <i class="uil uil-eye"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="password-error" class="password-error hidden">Passwords do not match</div>
         </div>
 
         <div class="action-section">

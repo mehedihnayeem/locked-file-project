@@ -305,6 +305,22 @@ body {
     margin-bottom: 2rem;
 }
 
+.password-group {
+    margin-bottom: 1.25rem;
+}
+
+.password-group:last-of-type {
+    margin-bottom: 0;
+}
+
+.password-error {
+    color: var(--danger-color);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    text-align: left;
+    display: block;
+}
+
 .password-section label {
     display: block;
     margin-bottom: 0.5rem;
