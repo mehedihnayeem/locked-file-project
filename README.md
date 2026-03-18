@@ -1,6 +1,6 @@
 # File Locker
 
-**Live Demo:** [https://locked-file-project-demo.netlify.app](https://locked-file-project-demo.netlify.app) *(Dummy URL)*
+**Live Demo:** [https://secure-file-locker.netlify.app/](https://secure-file-locker.netlify.app)
 
 ## What is this project?
 File Locker is a secure, client-side web application that allows you to encrypt and decrypt sensitive files directly within your browser. 
