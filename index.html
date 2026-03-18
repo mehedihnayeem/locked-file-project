@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Locker</title>
+    <meta name="description" content="Securely lock and unlock your files locally in your browser.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+</head>
+<body>
+    <div class="background">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="container glass-panel">
+        <div class="info-panel">
+            <header class="header">
+                <div class="logo">
+                    <i class="uil uil-padlock"></i>
+                    <h1>File Locker</h1>
+                </div>
+                <p class="subtitle">Secure your files with AES-256 encryption. Everything happens entirely in your browser—no data is ever sent to a server.</p>
+                <div class="instructions-card">
+                    <strong>How to use:</strong>
+                    <div class="instruction-step">
+                        <i class="uil uil-lock" style="color: var(--accent-color);"></i> <strong>To Lock:</strong> Select any file, set a strong password, and click Lock. A secure <code>.locked</code> file will be downloaded.
+                    </div>
+                    <div class="instruction-step">
+                        <i class="uil uil-unlock" style="color: var(--success-color);"></i> <strong>To Unlock:</strong> Switch to Unlock mode, upload your <code>.locked</code> file, enter your password, and click Unlock to restore the original file.
+                    </div>
+                </div>
+            </header>
+        </div>
+
+        <div class="action-panel">
+            <div class="mode-toggle">
+            <input type="radio" name="mode" id="mode-encrypt" value="encrypt" checked>
+            <label for="mode-encrypt" class="toggle-btn"><i class="uil uil-lock"></i> Lock</label>
+            
+            <input type="radio" name="mode" id="mode-decrypt" value="decrypt">
+            <label for="mode-decrypt" class="toggle-btn"><i class="uil uil-unlock"></i> Unlock</label>
+            
+            <div class="toggle-slider"></div>
+        </div>
+
+        <div class="drop-zone" id="drop-zone">
+            <div class="drop-zone-content">
+                <i class="uil uil-cloud-upload drop-icon"></i>
+                <h3 id="drop-text">Drop file to lock</h3>
+                <p>or click to browse</p>
+                <input type="file" id="file-input" hidden>
+            </div>
+            <div class="file-info hidden" id="file-info">
+                <i class="uil uil-file-alt file-icon"></i>
+                <div class="file-details">
+                    <span class="file-name" id="file-name">filename.ext</span>
+                    <span class="file-size" id="file-size">1.2 MB</span>
+                </div>
+                <button class="remove-file-btn" id="remove-file-btn" title="Remove file">
+                    <i class="uil uil-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="password-section">
+            <label for="password">Encryption Password</label>
+            <div class="password-input-wrapper">
+                <i class="uil uil-keyhole-circle icon-left"></i>
+                <input type="password" id="password" placeholder="Enter a strong password">
+                <button type="button" class="toggle-password" id="toggle-password" aria-label="Toggle password visibility">
+                    <i class="uil uil-eye"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="action-section">
+            <button id="action-btn" class="primary-btn" disabled>
+                <i class="uil uil-lock"></i>
+                <span id="action-text">Lock File</span>
+            </button>
+        </div>
+        
+        <div class="status-message hidden" id="status-message">
+            <i class="uil uil-info-circle"></i>
+            <span id="status-text">Processing...</span>
+        </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
